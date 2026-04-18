@@ -87,35 +87,38 @@ Güven Skoru: 9.2
 DelayHunter Elite`);
 });
 
-bot.onText(/^\/globalplus$/, (msg) => {
+bot.onText(/^\/globalplus$/, async (msg) => {
+
+try {
+
+const url = "https://www.scorebat.com/video-api/v3/";
+const res = await fetch(url);
+const data = await res.json();
+const games = data.response || [];
+
+if (games.length === 0) {
+bot.sendMessage(msg.chat.id,"🔥 Veri bulunamadı.");
+return;
+}
 
 let text = "🔥 GLOBAL PLUS\n\n";
 
-text += "⚽ Peru Liga 2\n78' | 1-1\n🔥 Son 10 dk baskı\n\n";
+games.slice(0,5).forEach((m,i)=>{
 
-text += "⚽ Finlandiya 2 Lig\n82' | 0-0\n🔥 Gol kokusu var\n\n";
+text += `${i+1}. ⚽ ${m.title}\n`;
+text += `🏆 ${m.competition}\n`;
+text += `🔥 Premium Takip\n\n`;
 
-text += "🏀 Poland Basket\nQ4 03:12 | 78-75\n🔥 Tempo yüksek\n\n";
-
-text += "🏀 Brazil NBB\nQ4 02:01 | 88-86\n🔥 Son top kritik\n\n";
+});
 
 text += "💰 DelayHunter Plus";
 
 bot.sendMessage(msg.chat.id,text);
 
-});
-bot.onText(/\/delay/, (msg) => {
-  bot.sendMessage(msg.chat.id, `⚠️ Veri Farkı Merkezi
+} catch(err) {
+bot.sendMessage(msg.chat.id,"❌ Plus veri hatası");
+}
 
-⚽ Finlandiya 2 Lig
-Kaynak A: 74'
-Kaynak B: 70'
-
-⚽ Peru Liga 2
-Kaynak A: 81'
-Kaynak B: 77'
-
-DelayHunter Delay Engine`);
 });
 
 bot.onText(/\/liveplus/, (msg) => {
