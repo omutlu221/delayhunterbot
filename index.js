@@ -15,7 +15,24 @@ Komutlar:
 /testelite
 /testozet`);
 });
+bot.onText(/\/canli/, (msg) => {
+  bot.sendMessage(msg.chat.id,
+`Canlı Maç Merkezi
 
+⚽ Finlandiya 2. Lig
+67' | 1-1
+
+⚽ Peru Liga 2
+74' | 2-1
+
+⚽ İsveç Kadınlar
+58' | 0-0
+
+🏀 Poland Basket
+Q4 03:12 | 78-75
+
+DelayHunter Live`);
+});
 bot.onText(/\/kasa (.+)/, (msg, match) => {
   kasa = parseInt(match[1]);
 
