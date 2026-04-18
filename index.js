@@ -44,22 +44,37 @@ Oran düşüyor
 
 DelayHunter Fırsat`);
 });
-bot.onText(/^\/global$/, (msg) => {
+bot.onText(/^\/global$/, async (msg) => {
+
+try {
+
+const key = process.env.SPORTS_API_KEY || "123";
+const url = `https://www.thesportsdb.com/api/v1/json/${key}/latestsoccer.php`;
+
+const res = await fetch(url);
+const data = await res.json();
+
+const games = data.results || [];
+
+if(games.length === 0){
+bot.sendMessage(msg.chat.id,"🌍 Şu anda canlı maç yok.");
+return;
+}
 
 let text = "🌍 GLOBAL LIVE\n\n";
 
-text += "⚽ Arsenal vs Sporting CP\n";
-text += "Skor: 0-0\n\n";
-
-text += "⚽ Peru Liga 2\n";
-text += "Skor: 2-1\n\n";
-
-text += "🏀 Poland Basket\n";
-text += "78-75\n\n";
+games.slice(0,8).forEach((m,i)=>{
+text += `${i+1}. ⚽ ${m.strHomeTeam} vs ${m.strAwayTeam}\n`;
+text += `Skor: ${m.intHomeScore || 0}-${m.intAwayScore || 0}\n\n`;
+});
 
 text += "DelayHunter Global";
 
 bot.sendMessage(msg.chat.id,text);
+
+} catch(err){
+bot.sendMessage(msg.chat.id,"❌ Veri çekilemedi.");
+}
 
 });
 bot.onText(/\/elite/, (msg) => {
