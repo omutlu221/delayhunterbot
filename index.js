@@ -134,16 +134,6 @@ bot.sendMessage(msg.chat.id,"❌ Plus veri hatası");
 }
 });
 
-text += "💰 DelayHunter Plus";
-
-bot.sendMessage(msg.chat.id,text);
-
-} catch(err) {
-bot.sendMessage(msg.chat.id,"❌ Plus veri hatası");
-}
-
-});
-
 bot.onText(/\/liveplus/, (msg) => {
   bot.sendMessage(msg.chat.id, `🔥 Premium Live Feed
 
