@@ -61,7 +61,7 @@ try {
 
 const key = process.env.SPORTS_API_KEY || "123";
 
-const url = `https://www.thesportsdb.com/api/v1/json/${key}/livescore.php?s=Soccer`;
+const url = `https://www.thesportsdb.com/api/v1/json/${key}/latestsoccer.php`;
 
 const res = await fetch(url);
 const data = await res.json();
