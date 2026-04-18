@@ -122,7 +122,6 @@ data.event.slice(0,5).forEach((m,i)=>{
 text += `${i+1}. ⚽ ${m.strHomeTeam} ${m.intHomeScore || 0}-${m.intAwayScore || 0} ${m.strAwayTeam}\n`;
 text += `⏱ ${m.intTime || "Canlı"} dk\n`;
 text += `🔥 Premium Takip\n\n`;
-
 });
 
 text += "💰 DelayHunter Plus";
