@@ -73,6 +73,9 @@ Q4 03:12 | 78-75
 🏀 Brazil NBB
 Q3 05:41 | 61-58
 
+🏀 Spain LEB Gold
+Q2 06:22 | 44-39
+
 DelayHunter Global`);
 });
 bot.onText(/\/delay/, (msg) => {
