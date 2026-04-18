@@ -44,7 +44,24 @@ Oran düşüyor
 
 DelayHunter Fırsat`);
 });
+bot.onText(/^\/global$/, (msg) => {
 
+let text = "🌍 GLOBAL LIVE\n\n";
+
+text += "⚽ Arsenal vs Sporting CP\n";
+text += "Skor: 0-0\n\n";
+
+text += "⚽ Peru Liga 2\n";
+text += "Skor: 2-1\n\n";
+
+text += "🏀 Poland Basket\n";
+text += "78-75\n\n";
+
+text += "DelayHunter Global";
+
+bot.sendMessage(msg.chat.id,text);
+
+});
 bot.onText(/\/elite/, (msg) => {
   bot.sendMessage(msg.chat.id, `🚨 ELITE SIGNAL
 
@@ -55,7 +72,8 @@ Güven Skoru: 9.2
 
 DelayHunter Elite`);
 });
-bot.onText(/\/globalplus/, (msg) => {
+
+bot.onText(/^\/globalplus$/, (msg) => {
 
 let text = "🔥 GLOBAL PLUS\n\n";
 
