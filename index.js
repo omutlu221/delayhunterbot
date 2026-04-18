@@ -77,17 +77,15 @@ bot.on('message', (msg) => {
   if(!txt.startsWith('/')){
     bot.sendMessage(msg.chat.id,"Komut kullanınız. /start");
   }
-});
-setInterval(() => {
-  const chatId = YOUR_CHAT_ID;
+});setInterval(() => {
+  const chatId = 5981189137;
 
   bot.sendMessage(chatId,
-`Saatlik Piyasa Özeti
+`10 Dakikalık Canlı Özet
 
-⚽ Avrupa maçları aktif
-🌎 Güney Amerika seansı yaklaşmakta
-📊 İzlenen maç sayısı: 3
-🔥 Elite fırsat aranıyor
+⚽ İzlenen maçlar güncelleniyor
+📊 Fırsatlar taranıyor
+🔥 Elite sinyal aranıyor
 
 DelayHunter Executive`);
-}, 3600000);
+}, 600000);
