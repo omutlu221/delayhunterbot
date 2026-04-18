@@ -48,24 +48,23 @@ bot.onText(/^\/global$/, async (msg) => {
 
 try {
 
-const key = process.env.SPORTS_API_KEY || "123";
-const url = `https://www.thesportsdb.com/api/v1/json/${key}/latestsoccer.php`;
+const url = "https://www.scorebat.com/video-api/v3/";
 
 const res = await fetch(url);
 const data = await res.json();
 
-const games = data.results || [];
+const games = data.response || [];
 
 if(games.length === 0){
-bot.sendMessage(msg.chat.id,"🌍 Şu anda canlı maç yok.");
+bot.sendMessage(msg.chat.id,"🌍 Veri bulunamadı.");
 return;
 }
 
 let text = "🌍 GLOBAL LIVE\n\n";
 
-games.slice(0,8).forEach((m,i)=>{
-text += `${i+1}. ⚽ ${m.strHomeTeam} vs ${m.strAwayTeam}\n`;
-text += `Skor: ${m.intHomeScore || 0}-${m.intAwayScore || 0}\n\n`;
+games.slice(0,5).forEach((m,i)=>{
+text += `${i+1}. ⚽ ${m.title}\n`;
+text += `🏆 ${m.competition}\n\n`;
 });
 
 text += "DelayHunter Global";
