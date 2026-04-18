@@ -1,10 +1,13 @@
-const http = require("http");
+const TelegramBot = require('node-telegram-bot-api');
 
-const PORT = process.env.PORT || 3000;
+const bot = new TelegramBot(process.env.BOT_TOKEN, { polling: true });
 
-http.createServer((req, res) => {
-  res.writeHead(200, {"Content-Type":"text/plain"});
-  res.end("DelayHunterBot Online");
-}).listen(PORT, () => {
-  console.log("Running on port " + PORT);
+bot.onText(/\/start/, (msg) => {
+  bot.sendMessage(msg.chat.id, "🔥 DelayHunter aktif!");
+});
+
+bot.on('message', (msg) => {
+  if (msg.text !== "/start") {
+    bot.sendMessage(msg.chat.id, "👀 Mesajını aldım: " + msg.text);
+  }
 });
