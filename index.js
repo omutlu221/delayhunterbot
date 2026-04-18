@@ -55,43 +55,21 @@ Güven Skoru: 9.2
 
 DelayHunter Elite`);
 });
-bot.onText(/\/global/, (msg) => {
+bot.onText(/\/globalplus/, (msg) => {
 
-  const key = process.env.SPORTS_API_KEY || "123";
-  const url = `https://www.thesportsdb.com/api/v1/json/${key}/eventslast.php?id=133604`;
+let text = "🔥 GLOBAL PLUS\n\n";
 
-  https.get(url, (resp) => {
+text += "⚽ Peru Liga 2\n78' | 1-1\n🔥 Son 10 dk baskı\n\n";
 
-    let data = "";
+text += "⚽ Finlandiya 2 Lig\n82' | 0-0\n🔥 Gol kokusu var\n\n";
 
-    resp.on("data", chunk => {
-      data += chunk;
-    });
+text += "🏀 Poland Basket\nQ4 03:12 | 78-75\n🔥 Tempo yüksek\n\n";
 
-    resp.on("end", () => {
-      const json = JSON.parse(data);
-      const games = json.results || [];
+text += "🏀 Brazil NBB\nQ4 02:01 | 88-86\n🔥 Son top kritik\n\n";
 
-      if (games.length === 0) {
-        bot.sendMessage(msg.chat.id,"🌍 Global Merkez\n\nVeri bulunamadı.");
-        return;
-      }
+text += "💰 DelayHunter Plus";
 
-      let text = "🌍 Global Test\n\n";
-
-      games.slice(0,5).forEach((m,i)=>{
-        text += `${i+1}. ${m.strEvent}\n`;
-        text += `Skor: ${m.intHomeScore}-${m.intAwayScore}\n\n`;
-      });
-
-      text += "DelayHunter Global";
-
-      bot.sendMessage(msg.chat.id,text);
-    });
-
-  }).on("error", () => {
-    bot.sendMessage(msg.chat.id,"❌ API bağlantı hatası");
-  });
+bot.sendMessage(msg.chat.id,text);
 
 });
 bot.onText(/\/delay/, (msg) => {
