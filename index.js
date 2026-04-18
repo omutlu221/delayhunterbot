@@ -77,7 +77,9 @@ bot.on('message', (msg) => {
   if(!txt.startsWith('/')){
     bot.sendMessage(msg.chat.id,"Komut kullanınız. /start");
   }
-});setInterval(() => {
+});
+
+setInterval(() => {
   const chatId = 5981189137;
 
   bot.sendMessage(chatId,
