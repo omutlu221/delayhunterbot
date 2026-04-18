@@ -1,5 +1,5 @@
 const TelegramBot = require('node-telegram-bot-api');
-
+const https = require("https");
 const bot = new TelegramBot(process.env.BOT_TOKEN, { polling: true });
 
 let kasa = 0;
@@ -55,28 +55,39 @@ Güven Skoru: 9.2
 
 DelayHunter Elite`);
 });
-bot.onText(/\/global/, async (msg) => {
+bot.onText(/\/global/, (msg) => {
 
-try {
+  const key = process.env.SPORTS_API_KEY || "123";
+  const url = `https://www.thesportsdb.com/api/v1/json/${key}/eventslast.php?id=133604`;
 
-const key = process.env.SPORTS_API_KEY || "123";
+  https.get(url, (resp) => {
 
-const url = `https://www.thesportsdb.com/api/v1/json/${key}/eventslast.php?id=133604`;
+    let data = "";
 
-const res = await fetch(url);
-const data = await res.json();
-const games = data.results || [];
+    resp.on("data", chunk => data += chunk);
 
-if (games.length === 0) {
-bot.sendMessage(msg.chat.id,"🌍 Global Merkez\n\nŞu anda canlı maç yok.");
-return;
-}
+    resp.on("end", () => {
 
-let text = "🌍 Global Test\n\n";
+      const json = JSON.parse(data);
+      const games = json.results || [];
 
-games.slice(0,5).forEach((m,i)=>{
-  text += `${i+1}. ${m.strEvent}\n`;
-  text += `Skor: ${m.intHomeScore}-${m.intAwayScore}\n\n`;
+      let text = "🌍 Global Test\n\n";
+
+      games.slice(0,5).forEach((m,i)=>{
+        text += `${i+1}. ${m.strEvent}\n`;
+        text += `Skor: ${m.intHomeScore}-${m.intAwayScore}\n\n`;
+      });
+
+      text += "DelayHunter Global";
+
+      bot.sendMessage(msg.chat.id,text);
+
+    });
+
+  }).on("error", () => {
+    bot.sendMessage(msg.chat.id,"❌ API bağlantı hatası");
+  });
+
 });
 
 bot.sendMessage(msg.chat.id,text);
