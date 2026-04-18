@@ -33,6 +33,28 @@ Q4 03:12 | 78-75
 
 DelayHunter Live`);
 });
+bot.onText(/\/firsat/, (msg) => {
+  bot.sendMessage(msg.chat.id, `🔥 Güncel Fırsatlar
+
+1️⃣ Peru Liga 2
+73' Gol baskısı
+
+2️⃣ Finlandiya 2 Lig
+Oran düşüyor
+
+DelayHunter Fırsat`);
+});
+
+bot.onText(/\/elite/, (msg) => {
+  bot.sendMessage(msg.chat.id, `🚨 ELITE SIGNAL
+
+⚽ Finlandiya 2 Lig
+78'
+
+Güven Skoru: 9.2
+
+DelayHunter Elite`);
+});
 bot.onText(/\/kasa (.+)/, (msg, match) => {
   kasa = parseInt(match[1]);
 
