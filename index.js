@@ -99,15 +99,6 @@ const liveGames = games.filter(m =>
   m.videos &&
   m.videos.length > 0
 );
-    m.title.includes("'") ||
-    m.title.toLowerCase().includes("live") ||
-    m.title.toLowerCase().includes("ht") ||
-    m.title.toLowerCase().includes("q1") ||
-    m.title.toLowerCase().includes("q2") ||
-    m.title.toLowerCase().includes("q3") ||
-    m.title.toLowerCase().includes("q4")
-  )
-);
 if (liveGames.length === 0){
 bot.sendMessage(msg.chat.id,"🔥 Veri bulunamadı.");
 return;
