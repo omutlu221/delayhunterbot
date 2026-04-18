@@ -55,6 +55,74 @@ Güven Skoru: 9.2
 
 DelayHunter Elite`);
 });
+bot.onText(/\/global/, (msg) => {
+  bot.sendMessage(msg.chat.id, `🌍 Global Canlı Merkez
+
+⚽ Finlandiya 2 Lig
+68' | 1-1
+
+⚽ Peru Liga 2
+74' | 2-1
+
+⚽ İsveç Kadınlar
+59' | 0-0
+
+🏀 Poland Basket
+Q4 03:12 | 78-75
+
+🏀 Brazil NBB
+Q3 05:41 | 61-58
+
+DelayHunter Global`);
+});
+bot.onText(/\/delay/, (msg) => {
+  bot.sendMessage(msg.chat.id, `⚠️ Veri Farkı Merkezi
+
+⚽ Finlandiya 2 Lig
+Kaynak A: 74'
+Kaynak B: 70'
+
+⚽ Peru Liga 2
+Kaynak A: 81'
+Kaynak B: 77'
+
+DelayHunter Delay Engine`);
+});
+
+bot.onText(/\/liveplus/, (msg) => {
+  bot.sendMessage(msg.chat.id, `🔥 Premium Live Feed
+
+⚽ Peru Liga 2
+Gol baskısı artıyor
+
+⚽ Finlandiya 2 Lig
+Oran hareketi başladı
+
+🏀 Poland Basket
+Tempo yükseldi
+
+DelayHunter Plus`);
+});
+
+bot.onText(/\/vip/, (msg) => {
+  bot.sendMessage(msg.chat.id, `💎 VIP Sistem
+
+Yakında açılıyor.
+
+Özel sinyaller
+Erken bildirimler
+Premium analizler`);
+});
+
+bot.onText(/\/gunluk/, (msg) => {
+  bot.sendMessage(msg.chat.id, `📊 Günlük Durum
+
+Kasa: 5000 TL
+Bugünkü Net: +420 TL
+
+Hedef tamamlandı.
+Disiplin korunuyor.`);
+});
 bot.onText(/\/kasa (.+)/, (msg, match) => {
   kasa = parseInt(match[1]);
 
