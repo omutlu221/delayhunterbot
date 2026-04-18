@@ -1,7 +1,16 @@
 const TelegramBot = require('node-telegram-bot-api');
 const https = require("https");
 const bot = new TelegramBot(process.env.BOT_TOKEN, { polling: true });
+const express = require("express");
+const app = express();
 
+app.get("/", (req, res) => {
+  res.send("Bot aktif");
+});
+
+app.listen(process.env.PORT || 10000, () => {
+  console.log("Web server aktif");
+});
 let kasa = 0;
 
 bot.onText(/\/start/, (msg) => {
