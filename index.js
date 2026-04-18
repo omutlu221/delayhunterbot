@@ -24,23 +24,30 @@ Komutlar:
 /testelite
 /testozet`);
 });
-bot.onText(/\/canli/, (msg) => {
-  bot.sendMessage(msg.chat.id,
-`Canlı Maç Merkezi
+bot.onText(/^\/canli$/, async (msg) => {
+try {
+const res = await fetch("https://www.thesportsdb.com/api/v1/json/3/livescore.php?s=Soccer");
+const data = await res.json();
 
-⚽ Finlandiya 2. Lig
-67' | 1-1
+if (!data || !data.event || data.event.length === 0) {
+bot.sendMessage(msg.chat.id,"📡 Şu anda canlı maç yok.");
+return;
+}
 
-⚽ Peru Liga 2
-74' | 2-1
+let text = "🔥 CANLI MAÇ MERKEZİ\n\n";
 
-⚽ İsveç Kadınlar
-58' | 0-0
+data.event.slice(0,10).forEach((m,i)=>{
 
-🏀 Poland Basket
-Q4 03:12 | 78-75
+text += `${i+1}. ⚽ ${m.strHomeTeam} ${m.intHomeScore || 0}-${m.intAwayScore || 0} ${m.strAwayTeam}\n`;
+text += `⏱ ${m.intTime || "Canlı"} dk\n\n`;
 
-DelayHunter Live`);
+});
+
+bot.sendMessage(msg.chat.id,text);
+
+} catch(err){
+bot.sendMessage(msg.chat.id,"❌ Veri alınamadı.");
+}
 });
 bot.onText(/\/firsat/, (msg) => {
   bot.sendMessage(msg.chat.id, `🔥 Güncel Fırsatlar
