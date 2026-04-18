@@ -1,5 +1,6 @@
 const TelegramBot = require('node-telegram-bot-api');
 const https = require("https");
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const bot = new TelegramBot(process.env.BOT_TOKEN, { polling: true });
 const express = require("express");
 const app = express();
