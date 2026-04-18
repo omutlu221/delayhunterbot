@@ -104,37 +104,33 @@ DelayHunter Elite`);
 });
 
 bot.onText(/^\/globalplus$/, async (msg) => {
-
 try {
 
-const url = "https://www.scorebat.com/video-api/v3/";
-const res = await fetch(url);
+const res = await fetch("https://www.thesportsdb.com/api/v1/json/3/livescore.php?s=Soccer");
 const data = await res.json();
-const games = data.response || [];
-const liveGames = games.filter(m =>
-  m.title &&
-  (
-    m.title.toLowerCase().includes("live") ||
-    m.title.toLowerCase().includes("ht") ||
-    m.title.toLowerCase().includes("q1") ||
-    m.title.toLowerCase().includes("q2") ||
-    m.title.toLowerCase().includes("q3") ||
-    m.title.toLowerCase().includes("q4")
-  )
-);
-if (liveGames.length === 0){
-bot.sendMessage(msg.chat.id,"🔥 Veri bulunamadı.");
+
+if (!data || !data.event || data.event.length === 0) {
+bot.sendMessage(msg.chat.id,"🔥 Şu anda canlı premium maç yok.");
 return;
 }
 
 let text = "🔥 GLOBAL PLUS\n\n";
 
-liveGames.slice(0,5).forEach((m,i)=>{
+data.event.slice(0,5).forEach((m,i)=>{
 
-text += `${i+1}. ⚽ ${m.title}\n`;
-text += `🏆 ${m.competition}\n`;
+text += `${i+1}. ⚽ ${m.strHomeTeam} ${m.intHomeScore || 0}-${m.intAwayScore || 0} ${m.strAwayTeam}\n`;
+text += `⏱ ${m.intTime || "Canlı"} dk\n`;
 text += `🔥 Premium Takip\n\n`;
 
+});
+
+text += "💰 DelayHunter Plus";
+
+bot.sendMessage(msg.chat.id,text);
+
+} catch(err){
+bot.sendMessage(msg.chat.id,"❌ Plus veri hatası");
+}
 });
 
 text += "💰 DelayHunter Plus";
