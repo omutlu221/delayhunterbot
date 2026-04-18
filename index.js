@@ -78,3 +78,16 @@ bot.on('message', (msg) => {
     bot.sendMessage(msg.chat.id,"Komut kullanınız. /start");
   }
 });
+setInterval(() => {
+  const chatId = YOUR_CHAT_ID;
+
+  bot.sendMessage(chatId,
+`Saatlik Piyasa Özeti
+
+⚽ Avrupa maçları aktif
+🌎 Güney Amerika seansı yaklaşmakta
+📊 İzlenen maç sayısı: 3
+🔥 Elite fırsat aranıyor
+
+DelayHunter Executive`);
+}, 3600000);
