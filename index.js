@@ -57,17 +57,15 @@ DelayHunter Elite`);
 });
 bot.onText(/\/global/, async (msg) => {
 
-const axios = require("axios");
-
 try {
 
 const key = process.env.SPORTS_API_KEY || "123";
 
 const url = `https://www.thesportsdb.com/api/v1/json/${key}/livescore.php?s=Soccer`;
 
-const res = await axios.get(url);
-
-const games = res.data.event || [];
+const res = await fetch(url);
+const data = await res.json();
+const games = data.event || [];
 
 if (games.length === 0) {
 bot.sendMessage(msg.chat.id,"🌍 Global Merkez\n\nŞu anda canlı maç yok.");
