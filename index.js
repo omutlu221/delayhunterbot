@@ -95,15 +95,26 @@ const url = "https://www.scorebat.com/video-api/v3/";
 const res = await fetch(url);
 const data = await res.json();
 const games = data.response || [];
-
-if (games.length === 0) {
+const liveGames = games.filter(m =>
+  m.title &&
+  (
+    m.title.includes("'") ||
+    m.title.toLowerCase().includes("live") ||
+    m.title.toLowerCase().includes("ht") ||
+    m.title.toLowerCase().includes("q1") ||
+    m.title.toLowerCase().includes("q2") ||
+    m.title.toLowerCase().includes("q3") ||
+    m.title.toLowerCase().includes("q4")
+  )
+);
+if (liveGames.length === 0){
 bot.sendMessage(msg.chat.id,"🔥 Veri bulunamadı.");
 return;
 }
 
 let text = "🔥 GLOBAL PLUS\n\n";
 
-games.slice(0,5).forEach((m,i)=>{
+liveGames.slice(0,5).forEach((m,i)=>{
 
 text += `${i+1}. ⚽ ${m.title}\n`;
 text += `🏆 ${m.competition}\n`;
