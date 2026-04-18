@@ -61,26 +61,25 @@ try {
 
 const key = process.env.SPORTS_API_KEY || "123";
 
-const url = `https://www.thesportsdb.com/api/v1/json/${key}/latestsoccer.php`;
+const url = `https://www.thesportsdb.com/api/v1/json/${key}/eventslast.php?id=133604`;
 
 const res = await fetch(url);
 const data = await res.json();
-const games = data.event || [];
+const games = data.results || [];
 
 if (games.length === 0) {
 bot.sendMessage(msg.chat.id,"🌍 Global Merkez\n\nŞu anda canlı maç yok.");
 return;
 }
 
-let text = "🌍 Global Canlı Merkez\n\n";
+let text = "🌍 Global Test\n\n";
 
-games.slice(0,8).forEach((m,i) => {
-
-text += `${i+1}️⃣ ${m.strHomeTeam} vs ${m.strAwayTeam}\n`;
-text += `Skor: ${m.intHomeScore || 0}-${m.intAwayScore || 0}\n`;
-text += `Durum: ${m.strStatus || "Canlı"}\n\n`;
-
+games.slice(0,5).forEach((m,i)=>{
+  text += `${i+1}. ${m.strEvent}\n`;
+  text += `Skor: ${m.intHomeScore}-${m.intAwayScore}\n\n`;
 });
+
+bot.sendMessage(msg.chat.id,text);
 
 text += "DelayHunter Global";
 
