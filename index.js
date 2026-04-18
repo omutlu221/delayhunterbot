@@ -96,8 +96,9 @@ const res = await fetch(url);
 const data = await res.json();
 const games = data.response || [];
 const liveGames = games.filter(m =>
-  m.title &&
-  (
+  m.videos &&
+  m.videos.length > 0
+);
     m.title.includes("'") ||
     m.title.toLowerCase().includes("live") ||
     m.title.toLowerCase().includes("ht") ||
