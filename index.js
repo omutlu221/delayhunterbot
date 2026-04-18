@@ -64,12 +64,18 @@ bot.onText(/\/global/, (msg) => {
 
     let data = "";
 
-    resp.on("data", chunk => data += chunk);
+    resp.on("data", chunk => {
+      data += chunk;
+    });
 
     resp.on("end", () => {
-
       const json = JSON.parse(data);
       const games = json.results || [];
+
+      if (games.length === 0) {
+        bot.sendMessage(msg.chat.id,"🌍 Global Merkez\n\nVeri bulunamadı.");
+        return;
+      }
 
       let text = "🌍 Global Test\n\n";
 
@@ -81,26 +87,11 @@ bot.onText(/\/global/, (msg) => {
       text += "DelayHunter Global";
 
       bot.sendMessage(msg.chat.id,text);
-
     });
 
   }).on("error", () => {
     bot.sendMessage(msg.chat.id,"❌ API bağlantı hatası");
   });
-
-});
-
-bot.sendMessage(msg.chat.id,text);
-
-text += "DelayHunter Global";
-
-bot.sendMessage(msg.chat.id,text);
-
-} catch(err){
-
-bot.sendMessage(msg.chat.id,"❌ API bağlantı hatası.");
-
-}
 
 });
 bot.onText(/\/delay/, (msg) => {
