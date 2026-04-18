@@ -233,9 +233,9 @@ bot.onText(/\/testozet/, (msg) => {
 });
 
 bot.on('message', (msg) => {
-  const txt = msg.text;
+  const txt = msg.text || "";
 
-  if(!txt.startsWith('/')){
+  if (txt && !txt.startsWith('/')) {
     bot.sendMessage(msg.chat.id,"Komut kullanınız. /start");
   }
 });
