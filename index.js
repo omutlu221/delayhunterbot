@@ -55,28 +55,45 @@ Güven Skoru: 9.2
 
 DelayHunter Elite`);
 });
-bot.onText(/\/global/, (msg) => {
-  bot.sendMessage(msg.chat.id, `🌍 Global Canlı Merkez
+bot.onText(/\/global/, async (msg) => {
 
-⚽ Finlandiya 2 Lig
-68' | 1-1
+const axios = require("axios");
 
-⚽ Peru Liga 2
-74' | 2-1
+try {
 
-⚽ İsveç Kadınlar
-59' | 0-0
+const key = process.env.SPORTS_API_KEY || "123";
 
-🏀 Poland Basket
-Q4 03:12 | 78-75
+const url = `https://www.thesportsdb.com/api/v1/json/${key}/livescore.php?s=Soccer`;
 
-🏀 Brazil NBB
-Q3 05:41 | 61-58
+const res = await axios.get(url);
 
-🏀 Spain LEB Gold
-Q2 06:22 | 44-39
+const games = res.data.event || [];
 
-DelayHunter Global`);
+if (games.length === 0) {
+bot.sendMessage(msg.chat.id,"🌍 Global Merkez\n\nŞu anda canlı maç yok.");
+return;
+}
+
+let text = "🌍 Global Canlı Merkez\n\n";
+
+games.slice(0,8).forEach((m,i) => {
+
+text += `${i+1}️⃣ ${m.strHomeTeam} vs ${m.strAwayTeam}\n`;
+text += `Skor: ${m.intHomeScore || 0}-${m.intAwayScore || 0}\n`;
+text += `Durum: ${m.strStatus || "Canlı"}\n\n`;
+
+});
+
+text += "DelayHunter Global";
+
+bot.sendMessage(msg.chat.id,text);
+
+} catch(err){
+
+bot.sendMessage(msg.chat.id,"❌ API bağlantı hatası.");
+
+}
+
 });
 bot.onText(/\/delay/, (msg) => {
   bot.sendMessage(msg.chat.id, `⚠️ Veri Farkı Merkezi
